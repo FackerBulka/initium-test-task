@@ -7,13 +7,16 @@ import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Injectable()
 export class UsersListStateService {
-    public readonly localStorageKey = 'users'
-    public readonly users$ = computed<IUser[]>(() => this.state$().users)
+    public readonly localStorageKey = 'users';
+    public readonly users$ = computed<IUser[]>(() => this.state$().users);
 
     private readonly state$ = signal<{ users: IUser[] }>({
         users: []
-    })
-    constructor(private apiService: UsersListApiService, private localStorageService: LocalStorageService) {}
+    });
+    constructor(
+        private apiService: UsersListApiService,
+        private localStorageService: LocalStorageService
+    ) {}
 
     public getUsersList(destroyRef: DestroyRef): void {
         const localStorageData = this.localStorageService.getDataFromStorage(this.localStorageKey);
@@ -24,7 +27,7 @@ export class UsersListStateService {
             this.apiService.getUsersList$()
                 .pipe(take(1), takeUntilDestroyed(destroyRef))
                 .subscribe({
-                    next: (data) => this.successFetchUsersHandler(data.users)
+                    next: (data) => this.successFetchUsersHandler(data.users),
                 });
         }
     }
@@ -34,7 +37,7 @@ export class UsersListStateService {
 
         user.id = this.users$.length > 1 ? this.users$().length - 1 : this.users$().length;
         user.selected = false;
-        users.push(user)
+        users.push(user);
 
         this.state$.update((state) => ({
             ...state,
@@ -45,10 +48,10 @@ export class UsersListStateService {
     }
 
     public removeSomeUsers(userIds: number[]): void {
-        let users = this.users$()
+        let users = this.users$();
 
         userIds.forEach((userId) => {
-            users = users.filter((user) => user.id !== userId)
+            users = users.filter((user) => user.id !== userId);
         })
 
         this.handleSuccessRemoveUsers(users);
@@ -59,7 +62,7 @@ export class UsersListStateService {
     }
 
     public updateUser(id: number, data: IUser): void {
-        const users = this.users$()
+        const users = this.users$();
 
         users.find((user) => {
             if (user.id === id) {
@@ -68,7 +71,7 @@ export class UsersListStateService {
                 user.email = data.email;
                 user.surname = data.surname
             }
-        })
+        });
 
         this.handleSuccessUpdateUser(users);
     }
@@ -78,7 +81,7 @@ export class UsersListStateService {
             ...user,
             id: index,
             selected: false
-        }))
+        }));
 
         this.state$.update((state) => ({
             ...state,

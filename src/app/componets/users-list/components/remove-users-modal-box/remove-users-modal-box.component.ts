@@ -14,6 +14,5 @@ import {ReactiveFormsModule} from "@angular/forms";
   styleUrls: ['./remove-users-modal-box.component.scss']
 })
 export class RemoveUsersModalBoxComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any | null) {
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any | null) {}
 }

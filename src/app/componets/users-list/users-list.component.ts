@@ -10,6 +10,8 @@ import {IUser} from "../../../interfaces/user.interface";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {AddEditUserModalBoxComponent} from "./components/add-edit-user-modal-box/add-edit-user-modal-box.component";
 import {RemoveUsersModalBoxComponent} from "./components/remove-users-modal-box/remove-users-modal-box.component";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
 
 @Component({
   selector: 'app-users-list',
@@ -23,6 +25,8 @@ import {RemoveUsersModalBoxComponent} from "./components/remove-users-modal-box/
     NgForOf,
     FormsModule,
     MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   providers: [UsersListStateService]
 })
@@ -53,9 +57,11 @@ export class UsersListComponent implements OnInit {
 
   public setAll(isSelect: boolean): void {
     this.allSelected = isSelect;
+
     if (!this.usersCheckbox.users.length) {
       return;
     }
+
     this.usersCheckbox.users.forEach(user => (user.selected = isSelect));
   }
 
@@ -63,25 +69,26 @@ export class UsersListComponent implements OnInit {
     if (!this.usersCheckbox.users.length) {
       return false;
     }
+
     return this.usersCheckbox.users.filter(user => user.selected).length > 0 && !this.allSelected;
   }
 
   public selectUnselectUser(id: number | undefined, isSelect: boolean): void {
     if (isSelect) {
-      this.selectedList.push(id as number)
+      this.selectedList.push(id as number);
     } else {
       this.selectedList = this.selectedList.filter((userId) => userId !== id);
     }
 
-    this.usersCheckbox.users[id as number].selected = isSelect
+    this.usersCheckbox.users[id as number].selected = isSelect;
   }
 
   public createNewUser(): void {
-    const dialogRef = this.dialog.open(AddEditUserModalBoxComponent)
+    const dialogRef = this.dialog.open(AddEditUserModalBoxComponent);
 
     dialogRef.beforeClosed().subscribe((result) => {
       if (result) {
-        this.stateService.createNewUser(result)
+        this.stateService.createNewUser(result);
       }
     })
   }
@@ -93,11 +100,11 @@ export class UsersListComponent implements OnInit {
       data: {
         count,
       }
-    })
+    });
 
     dialogRef.beforeClosed().subscribe((result) => {
       if (result) {
-        this.allSelected ? this.stateService.removeAllUsers() : this.stateService.removeSomeUsers(this.selectedList)
+        this.allSelected ? this.stateService.removeAllUsers() : this.stateService.removeSomeUsers(this.selectedList);
         this.selectedList = [];
         this.allSelected = false;
       }
@@ -109,19 +116,19 @@ export class UsersListComponent implements OnInit {
       data: {
         user
       }
-    })
+    });
 
     dialogRef.beforeClosed().subscribe((result) => {
       if (result) {
         this.stateService
-            .updateUser(result.id as number, {name: result.name, email: result.email, surname: result.surname, phone: result.phone})
+            .updateUser(result.id as number, {name: result.name, email: result.email, surname: result.surname, phone: result.phone});
       }
-    })
+    });
   }
 
   private subscribeOnUsersUpdate(): void {
     effect(() => {
-      this.usersCheckbox.users = this.stateService.users$()
+      this.usersCheckbox.users = this.stateService.users$();
     }, {injector: this.injector, allowSignalWrites: true});
   }
 }

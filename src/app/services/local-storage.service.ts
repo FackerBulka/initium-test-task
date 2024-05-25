@@ -8,16 +8,16 @@ export class LocalStorageService {
     constructor() {}
 
     public setDataToStorage(key: string, data: any): void {
-        localStorage.setItem(`${this.prefix}_${key}`, JSON.stringify(data))
+        localStorage.setItem(`${this.prefix}_${key}`, JSON.stringify(data));
     }
 
     public getDataFromStorage(key: string): any {
-        const dataFormStorage = localStorage.getItem(`${this.prefix}_${key}`)
+        const dataFormStorage = localStorage.getItem(`${this.prefix}_${key}`);
 
         if (dataFormStorage) {
-            return JSON.parse(dataFormStorage)
+            return JSON.parse(dataFormStorage);
         }
 
-        return null
+        return null;
     }
 }

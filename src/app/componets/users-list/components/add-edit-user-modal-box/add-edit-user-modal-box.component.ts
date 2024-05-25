@@ -16,12 +16,10 @@ import {MatButtonModule} from "@angular/material/button";
 export class AddEditUserModalBoxComponent implements OnInit {
   public userForm!: FormGroup;
 
-  constructor(
-      @Inject(MAT_DIALOG_DATA) public data: any | null,
-  ){}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any | null){}
 
   public ngOnInit(): void {
-    this.setUpForm()
+    this.setUpForm();
   }
 
   public initValueOnClose(): IUser {
@@ -29,25 +27,25 @@ export class AddEditUserModalBoxComponent implements OnInit {
       return {
         ...this.userForm.value,
         id: this.data.user.id
-      }
+      };
     } else {
-      return this.userForm.value
+      return this.userForm.value;
     }
   }
 
   private setUpForm(): void {
-    const phonePattern = /(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))/
-    const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+    const phonePattern = /(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))/;
+    const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
     this.userForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.min(2)]),
       surname: new FormControl('', [Validators.required, Validators.min(2)]),
       phone: new FormControl('', [Validators.pattern(phonePattern)]),
       email: new FormControl('', [Validators.pattern(emailPattern)]),
-    })
+    });
 
     if (this.data) {
-      this.initFormData(this.data.user)
+      this.initFormData(this.data.user);
     }
   }
 
@@ -57,6 +55,6 @@ export class AddEditUserModalBoxComponent implements OnInit {
       surname: user.surname,
       phone: user.phone,
       email: user.email
-    })
+    });
   }
 }
