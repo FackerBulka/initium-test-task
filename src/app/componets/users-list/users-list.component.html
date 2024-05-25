@@ -1,0 +1,63 @@
+<div class="main">
+    <h2 class="title">Клиенты</h2>
+
+    <div class="users-list">
+        <div class="buttons-block">
+            <button
+                mat-icon-button
+                (click)="createNewUser()"
+            >
+                <mat-icon>add</mat-icon>
+            </button>
+
+            <button
+                mat-icon-button
+                [disabled]="!allSelected && !someComplete()"
+                (click)="removeUsers()"
+            >
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+
+        <div class="list">
+            <div class="list-header">
+                <mat-checkbox
+                        [indeterminate]="someComplete()"
+                        (change)="setAll($event.checked)"
+                />
+                    <div class="element">
+                        <p class="name-surname-label header-element">{{ usersCheckbox.name }}</p>
+
+                        <p class="name-surname-label header-element">{{ usersCheckbox.surname }}</p>
+
+                        <p class="phone-email-label header-element">{{ usersCheckbox.email }}</p>
+
+                        <p class="phone-email-label header-element">{{ usersCheckbox.phone }}</p>
+                    </div>
+            </div>
+
+            <div
+                *ngFor="let user of usersCheckbox.users"
+                class="list-element">
+                <mat-checkbox
+                        [(ngModel)]="user.selected"
+                        (change)="selectUnselectUser(user.id, $event.checked)"
+                />
+                    <div class="element">
+                        <p
+                            class="name-surname-label clickable"
+                            (click)="updateUser(user)"
+                        >
+                            {{ user.name }}
+                        </p>
+
+                        <p class="name-surname-label">{{ user.surname }}</p>
+
+                        <p class="phone-email-label">{{ user.email }}</p>
+
+                        <p class="phone-email-label">{{ user.phone }}</p>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

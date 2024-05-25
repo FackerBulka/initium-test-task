@@ -4,4 +4,5 @@ export interface IUser {
     email: string;
     phone: string;
     selected?: boolean;
+    id?: number
 }

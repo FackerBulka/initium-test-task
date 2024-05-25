@@ -1,0 +1,110 @@
+.main {
+  max-width: 100vw;
+  max-height: 100vw;
+  height: 100%;
+  background-color: #E9F3FF;
+  padding: 0 16px;
+  overflow: hidden;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 28px;
+  color: #2F7FD5;
+  padding: 33px 9px;
+}
+
+.users-list {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 16px 0;
+  overflow: auto;
+  max-height: calc(100vh - 166px);
+
+  .buttons-block {
+    padding: 0 16px;
+
+    button {
+      color: #304879;
+    }
+
+    button:hover {
+      background-color: #e1eeff;
+    }
+
+    button:active {
+      background-color: #b5d3ff;
+    }
+
+    button:disabled {
+      color: #A8B0BF;
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+
+    .phone-email-label {
+      text-align: right;
+    }
+
+    .list-element {
+      border-bottom: solid 1px #f2f2f2;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .list-element:last-child {
+      border-bottom: 0;
+    }
+
+    .list-element:hover {
+      background-color: #f6f9ff;
+    }
+
+    .list-header {
+      border-bottom: solid 1px #f2f2f2;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .element {
+      display: flex;
+      flex-direction: row;
+
+      p {
+        width: 15vw;
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .header-element {
+        font-weight: 500;
+        color: #304c97;
+      }
+
+      .clickable {
+        cursor: pointer;
+      }
+
+      .clickable:hover {
+        text-decoration: underline;
+        color: #3164cb;
+      }
+    }
+  }
+}
+
+.mat-mdc-checkbox.mat-accent {
+  //background-color: blue !important;
+  //border-color: blue !important;
+  --mdc-checkbox-selected-pressed-icon-color: #4A95F7;
+  --mdc-checkbox-selected-focus-icon-color: #4A95F7;
+  --mdc-checkbox-selected-icon-color: #4A95F7;
+  --mdc-checkbox-selected-hover-icon-color: #4A95F7;
+}
